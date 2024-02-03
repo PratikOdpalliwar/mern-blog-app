@@ -24,7 +24,7 @@ const PostItem = ({ postID, category, title, desc, authorID, thumbnail }) => {
           <div className='flex justify-end items-center place-content-centerh-8'>
           <Link
             to={`/posts/categories/${category}`}
-            className="inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+            className="inline-block  bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 hover:bg-gray-900 hover:text-white transition-all ease-in-out duration-150"
           >
             {category}
           </Link>
