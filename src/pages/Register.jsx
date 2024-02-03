@@ -19,7 +19,7 @@ const Register = () => {
       <div className="bg-white p-8 rounded shadow-md w-full md:w-96">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form>
-          <p className="text-black mb-4">This is an error message</p>
+          <p className="w-full mb-4 px-3 py-2 rounded bg-red-500 text-white">This is an error message</p>
           <input
             type="text"
             placeholder="Full Name"
