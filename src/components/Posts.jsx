@@ -1,59 +1,28 @@
-import React, { useState } from 'react'
-
-import Thumbnail1 from "../assets/blog1.jpg"
-import Thumbnail2 from '../assets/blog2.jpg' 
-import Thumbnail3 from '../assets/blog3.jpg'
-import Thumbnail4 from '../assets/blog4.jpg'
-import PostItem from './PostItem'
-
-const DUMMY_POSTS = [
-    {
-      id: '1',
-      thumbnail: Thumbnail1,
-      category: 'education',
-      title: 'This is the title of the very first post on this blog.',
-      desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, eum harum. Doloremque consequatur numquam beatae, obcaecati, eligendi error deleniti porro maiores quam magnam atque! Magni, distinctio? Consequuntur aut nostrum corporis.50' ,
-      authorID: 3,
-    },
-    {
-      id: '2',
-      thumbnail: Thumbnail2,
-      category: 'science',
-      title: 'This is the title of the very second post on this blog.',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, eum harum. Doloremque consequatur numquam beatae, obcaecati, eligendi error deleniti porro maiores quam magnam atque! Magni, distinctio? Consequuntur aut nostrum corporis.50',
-      authorID: 1,
-    },
-    {
-      id: '3',
-      thumbnail: Thumbnail3,
-      category: 'weather',
-      title: 'This is the title of the very third post on this blog.',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, eum harum. Doloremque consequatur numquam beatae, obcaecati, eligendi error deleniti porro maiores quam magnam atque! Magni, distinctio? Consequuntur aut nostrum corporis.50',
-      authorID: 13,
-    },
-    {
-      id: '4',
-      thumbnail: Thumbnail4,
-      category: 'farming',
-      title: 'This is the title of the very last post on this blog.',
-      desc: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, eum harum. Doloremque consequatur numquam beatae, obcaecati, eligendi error deleniti porro maiores quam magnam atque! Magni, distinctio? Consequuntur aut nostrum corporis.50',
-      authorID: 11,
-    },
-  ];
-  
+import React, { useState } from "react";
+import PostItem from "./PostItem";
+import { DUMMY_POSTS } from "../data";
 
 const Posts = () => {
-
-    const [posts, setPosts] = useState(DUMMY_POSTS)
+  const [posts, setPosts] = useState(DUMMY_POSTS);
   return (
-   <section className='flex flex-row flex-wrap justify-around'>
-    {
- posts.map(({id, thumbnail,category,title,desc,authorID}) =>
- <PostItem key={id} postID={id} thumbnail={thumbnail} category={category} title={title} desc={desc} authorID={authorID} />
- )
-    }
-   </section>
-  )
-}
+    <section className="flex flex-row flex-wrap justify-around">
+      {posts.length > 0 ? (
+        posts.map(({ id, thumbnail, category, title, desc, authorID }) => (
+          <PostItem
+            key={id}
+            postID={id}
+            thumbnail={thumbnail}
+            category={category}
+            title={title}
+            desc={desc}
+            authorID={authorID}
+          />
+        ))
+      ) : (
+        <h2 className="m-10 flex justify-center text-3xl font-bold">No Posts Found</h2>
+      )}
+    </section>
+  );
+};
 
-export default Posts
+export default Posts;
