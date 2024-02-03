@@ -13,7 +13,7 @@ const Header = () => {
 
   return (
     
-    <nav className="bg-white p-4 shadow-2xl">
+    <nav className="bg-white w-full p-4 shadow-2xl fixed top-0 left-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-black text-lg font-bold">
           <Link to="/">
