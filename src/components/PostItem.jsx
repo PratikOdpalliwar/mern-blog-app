@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import PostAuthor from './PostAuthor';
 
 const PostItem = ({ postID, category, title, desc, authorID, thumbnail }) => {
+
+  const shortDesc = desc.length > 100 ? desc.substr(0,100) + '...' : desc;
+
   return (
     <article className="w-80 bg-white rounded-lg overflow-hidden shadow-2xl m-4">
       <div>
@@ -12,7 +15,7 @@ const PostItem = ({ postID, category, title, desc, authorID, thumbnail }) => {
         <Link to={`/posts/${postID}`} className="text-lg font-bold text-black hover:text-blue-500 hover:underline">
           {title}
         </Link>
-        <p className="text-sm text-gray-700 w-full mt-2">{desc}</p>
+        <p className="px-2 text-sm text-justify text-gray-700 w-full mt-2">{shortDesc}</p>
         <div className="mt-2 flex flex-row">
           <div className='w-9/12'>
           <PostAuthor authorID={authorID} />
