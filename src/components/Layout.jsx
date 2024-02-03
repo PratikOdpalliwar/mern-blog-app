@@ -7,10 +7,15 @@ import Footer from './Footer'
 const Layout = () => {
   return (
    <>
+   <div>
    <Header/>
+   </div>
+   <div className='mt-20'>
    <Outlet/>
+   </div>
+   <div>
    <Footer/> 
-   
+   </div>
    </>
   )
 }

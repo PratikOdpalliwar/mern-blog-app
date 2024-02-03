@@ -46,7 +46,7 @@ const Posts = () => {
 
     const [posts, setPosts] = useState(DUMMY_POSTS)
   return (
-   <section>
+   <section className='flex flex-row flex-wrap justify-around'>
     {
  posts.map(({id, thumbnail,category,title,desc,authorID}) =>
  <PostItem key={id} postID={id} thumbnail={thumbnail} category={category} title={title} desc={desc} authorID={authorID} />

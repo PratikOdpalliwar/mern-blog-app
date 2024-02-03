@@ -11,9 +11,13 @@ const Header = () => {
       setIsOpen(!isOpen);
     };
 
+    const closeMenu = () => {
+      setIsOpen(false);
+    };
+
   return (
     
-    <nav className="bg-white w-full p-4 shadow-2xl fixed top-0 left-0 z-10">
+    <nav className="bg-white bg-opacity-50 w-full p-4 shadow-2xl fixed top-0 left-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
         <div className="text-black text-lg font-bold">
           <Link to="/">
@@ -44,11 +48,11 @@ const Header = () => {
         </div>
       </div>
       {isOpen && (
-        <div className="md:hidden bg-gray-100 p-4">
-          <Link to="/profile" className="block text-black mb-2">Ernest Achiever</Link>
-          <Link to="/create" className="block text-black mb-2">Create Post</Link>
-          <Link to="/authors" className="block text-black mb-2">Authors</Link>
-          <Link to="/logout" className="block text-black mb-2">Logout</Link>
+        <div className="md:hidden bg-opacity-75  bg-gray-100 p-4">
+          <Link to="/profile" onClick={closeMenu} className="block text-black mb-2">Ernest Achiever</Link>
+          <Link to="/create" onClick={closeMenu} className="block text-black mb-2">Create Post</Link>
+          <Link to="/authors" onClick={closeMenu} className="block text-black mb-2">Authors</Link>
+          <Link to="/logout" onClick={closeMenu} className="block text-black mb-2">Logout</Link>
         </div>
       )}
     </nav>
