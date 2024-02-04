@@ -26,7 +26,7 @@ const Header = () => {
        
         <ul className="hidden md:flex mx-5 space-x-4">
 <li>
-           <Link to="/profile">Ernest Achiever</Link>
+           <Link to="/profile/sdfsdf">Ernest Achiever</Link>
           </li>
           <li>
           <Link to="/create">Create Post</Link>
