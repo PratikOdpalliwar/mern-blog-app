@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Logout = () => {
+const DeletePost = () => {
   return (
     <div className='flex font-bold text-3xl justify-center m-10'>
-      logout
-    </div>
+    DELETE
+  </div>
   )
 }
 
-export default Logout
+export default DeletePost

@@ -49,7 +49,7 @@ const Header = () => {
       </div>
       {isOpen && (
         <div className="md:hidden bg-opacity-75  bg-gray-100 p-4">
-          <Link to="/profile" onClick={closeMenu} className="block text-black mb-2">Ernest Achiever</Link>
+          <Link to="/profile/sdfsdf" onClick={closeMenu} className="block text-black mb-2">Ernest Achiever</Link>
           <Link to="/create" onClick={closeMenu} className="block text-black mb-2">Create Post</Link>
           <Link to="/authors" onClick={closeMenu} className="block text-black mb-2">Authors</Link>
           <Link to="/logout" onClick={closeMenu} className="block text-black mb-2">Logout</Link>

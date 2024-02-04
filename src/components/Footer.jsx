@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer className="h-auto w-auto bg-black font-mono text-xs ">
-      <ul className="flex flex-row flex-wrap justify-center items-center py-5">
+      <ul className="flex flex-col sm:flex-row sm:flex-wrap justify-center items-center py-5">
       <li className="mx-5 my-2 bg-gray-700 p-2 rounded-lg text-white hover:bg-white hover:text-black transition-all ease-in-out duration-200 cursor-pointer">
         <Link to="/posts/categories/Agriculture">Agriculture</Link>
       </li >
