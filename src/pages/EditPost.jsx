@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
-import "tailwindcss/tailwind.css"; // Import Tailwind CSS
+import "react-quill/dist/quill.snow.css";
+import { UserContext } from "../context/userContext";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const EditPost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const modules = {
     toolbar: [
@@ -49,14 +64,56 @@ const EditPost = () => {
     "Weather",
   ];
 
+  useEffect(() => {
+    const getPost = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/posts/${id}`
+        );
+        setTitle(response.data.title);
+        setDescription(response.data.description);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPost();
+  }, []);
+
+  const editPost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set("title", title);
+    postData.set("category", category);
+    postData.set("description", description);
+    postData.set("thumbnail", thumbnail);
+
+    try {
+      const response = await axios.patch(
+        `${process.env.REACT_APP_BASE_URL}/posts/${id}`,
+        postData,
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.status == 200) {
+        return navigate("/");
+      }
+    } catch (err) {
+      setError(err.response.data.message);
+    }
+  };
+
   return (
     <section className="bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4">Edit Post</h2>
 
-        <p className="bg-red-500 text-white p-2 rounded flex justify-center mb-4">This is an error message</p>
+        {error && (
+          <p className="bg-red-500 text-white p-2 rounded flex justify-center mb-4">
+            {error}
+          </p>
+        )}
 
-        <form>
+        <form onSubmit={editPost}>
           <input
             type="text"
             placeholder="Title"

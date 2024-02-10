@@ -1,89 +1,72 @@
-import React from "react";
-import PosstAuthor from "../components/PostAuthor";
-import Thumbnail from "../assets/blog22.jpg";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import PostAuthor from "../components/PostAuthor";
+import { Link, useParams } from "react-router-dom";
+import Loader from "../components/Loader";
+import DeletePost from "./DeletePost";
+import { UserContext } from "../context/userContext";
+import axios from "axios";
 
 const PostDetail = () => {
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const { currentUser } = useContext(UserContext);
+
+  useEffect(() => {
+    const getPost = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/posts/${id}`
+        );
+        setPost(response.data);
+      } catch (error) {
+        setError(error);
+      }
+      setIsLoading(false);
+    };
+    getPost();
+  }, [id]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <section className="container mx-auto mt-8">
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-        <PosstAuthor />
-        <div className="flex justify-between items-center mt-4">
-          <div>
-            <Link to="/posts/werwer/edit" className="text-blue-500">
-              Edit
-            </Link>
-            <span className="mx-2">|</span>
-            <Link to="/posts/werwer/delete" className="text-red-500">
-              Delete
-            </Link>
+      {error && (
+        <p className="w-full mb-4 px-3 py-2 rounded bg-red-500 text-white">
+          {error}
+        </p>
+      )}
+      {post && (
+        <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+          <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
+          <div className="flex justify-between items-center mt-4">
+            <div>
+              {currentUser?.id === post.creator && (
+                <div>
+                  <Link to={`/posts/${post._id}/edit`} className="text-blue-500">
+                    Edit
+                  </Link>
+                  <span className="mx-2">|</span>
+                  <DeletePost postId={id} />
+                </div>
+              )}
+            </div>
+            <h1 className="text-4xl font-bold mt-4">{post.title}</h1>
+            <div className="mt-4">
+              <img
+                src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`}
+                alt=""
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
+            <p dangerouslySetInnerHTML={{ __html: post.desc }}></p>
           </div>
         </div>
-        <h1 className="text-4xl font-bold mt-4">This is the post Title!</h1>
-        <div className="mt-4">
-          <img src={Thumbnail} alt="" className="w-full h-auto rounded-lg" />
-        </div>
-        <p className="mt-4 text-justify">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo atque
-          omnis totam hic nobis excepturi labore autem? Itaque in aut excepturi,
-          inventore saepe tenetur facere quam cupiditate mollitia voluptatum?
-          Distinctio, ipsa. Iure quod eligendi, explicabo beatae perferendis
-          nemo facilis ipsa.
-        </p>
-        <p className="mt-4 text-justify">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis nam
-          minus, necessitatibus eius sapiente ducimus dolorem? Placeat eos nobis
-          recusandae, adipisci odit cupiditate! Praesentium unde, veniam porro
-          consequatur temporibus tempore cum aperiam ipsa itaque earum esse qui
-          veritatis blanditiis est atque nihil dolores in suscipit
-          necessitatibus quisquam. Numquam dolor nam porro incidunt velit
-          dolorum culpa!
-        </p>
-        <p className="mt-4 text-justify">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati
-          aut impedit voluptatibus! Numquam velit nobis rem quod nihil officia
-          ducimus saepe molestias enim fuga a sed, est unde quaerat minus
-          itaque, natus explicabo ipsam! Necessitatibus atque, nostrum quibusdam
-          nihil nobis architecto magnam quidem voluptas laboriosam sed. Ratione
-          et, nostrum ipsum iure debitis non qui corrupti, eius adipisci
-          veritatis eos suscipit delectus voluptas odio pariatur at veniam quas
-          ipsam porro! Ullam mollitia consequuntur expedita temporibus dolores
-          tempore inventore, officiis, quas quidem velit obcaecati
-          necessitatibus aliquam tempora quisquam quasi ad iusto nostrum esse
-          excepturi aut fugit ipsam. Perspiciatis sapiente reprehenderit
-          explicabo omnis quae! Soluta quasi veritatis aperiam necessitatibus
-          voluptates quas alias ratione porro?
-        </p>
-        <p className="mt-4 text-justify">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
-          cumque, harum distinctio perspiciatis iure laudantium atque
-          necessitatibus explicabo exercitationem minus!
-        </p>
-        <p className="mt-4 text-justify">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus
-          neque doloremque, ab saepe alias inventore eos corporis quidem facere
-          aspernatur. Accusantium quibusdam voluptatem amet facere eveniet
-          doloribus laborum expedita soluta alias, obcaecati dolores optio rerum
-          totam nihil consequatur, nisi libero, animi ipsam assumenda? Explicabo
-          alias fuga exercitationem illo officiis fugit dolorum, assumenda culpa
-          vel totam mollitia animi maxime quae deleniti earum voluptatum error
-          rerum velit est magnam veritatis, nihil libero? Vero dolore quis
-          maiores excepturi quas aliquid ad laborum necessitatibus, voluptatem
-          nihil aperiam accusantium ab possimus iste corporis, dicta maxime
-          numquam! Deleniti quod adipisci quae dolores! Consequuntur natus
-          facilis incidunt itaque iure consectetur nemo adipisci nobis neque,
-          aperiam, quibusdam est dolores deleniti voluptas cumque ad animi
-          facere quia in! Ut quis soluta, maiores optio ipsum adipisci in libero
-          nemo sapiente, itaque dignissimos tenetur repellendus quasi beatae
-          suscipit! Ut et repudiandae aut explicabo quidem dignissimos animi
-          illo repellat provident maiores sapiente placeat, incidunt impedit
-          minima vel aperiam pariatur expedita magni eius culpa. Laudantium ut
-          nisi nesciunt veritatis quisquam magni eum, unde velit eveniet
-          perspiciatis ipsum deleniti laboriosam praesentium cum quae assumenda
-          quas ratione hic et ducimus ipsa recusandae error. Minus quas earum
-          rem beatae asperiores dolor porro. Pariatur totam nostrum ducimus?
-        </p>
-      </div>
+      )}
     </section>
   );
 };

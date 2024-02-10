@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import Quill styles
-import "tailwindcss/tailwind.css"; // Import Tailwind CSS
+import "react-quill/dist/quill.snow.css";
+import { UserContext } from "../context/userContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const CreatePost = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("Uncategorized");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const { currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, []);
 
   const modules = {
     toolbar: [
@@ -49,14 +63,41 @@ const CreatePost = () => {
     "Weather",
   ];
 
+  const createPost = async (e) => {
+    e.preventDefault();
+
+    const postData = new FormData();
+    postData.set("title", title);
+    postData.set("category", category);
+    postData.set("description", description);
+    postData.set("thumbnail", thumbnail);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/posts`,
+        postData,
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+      );
+      if (response.status == 201) {
+        return navigate("/");
+      }
+    } catch (err) {
+      setError(err.response.data.message);
+    }
+  };
+
   return (
     <section className="bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-8 rounded shadow-md w-96">
         <h2 className="text-2xl font-bold mb-4">Create Post</h2>
 
-        <p className="bg-red-500 text-white p-2 rounded flex justify-center mb-4">This is an error message</p>
+        {error && (
+          <p className="bg-red-500 text-white p-2 rounded flex justify-center mb-4">
+            {error}
+          </p>
+        )}
 
-        <form>
+        <form onSubmit={createPost}>
           <input
             type="text"
             placeholder="Title"

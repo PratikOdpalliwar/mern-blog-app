@@ -4,6 +4,7 @@ const User = require("../models/userModel");
 const HttpError = require("../models/errorModel");
 const fs = require("fs");
 const path = require("path");
+const { v4: uuid } = require('uuid');
 
 //register user
 const registerUser = async (req, res, next) => {
@@ -56,15 +57,18 @@ const loginUser = async (req, res, next) => {
     }
     const { _id: id, name } = user;
     const token = jwt.sign({ id, name }, process.env.JWT_SECRET, {
-      expiresIn: "id",
+      expiresIn: "1d",
     });
-    res.json(200).json({ token, id, name });
+    res.status(200).json({ token, id, name });
   } catch (error) {
     return next(
       new HttpError("Login failed. Please check your credentials.", 422)
     );
   }
 };
+
+
+
 
 //get user
 const getUser = async (req, res, next) => {
@@ -81,14 +85,14 @@ const getUser = async (req, res, next) => {
 };
 
 //change avatar
-const changeAvtar = async (req, res, next) => {
-  try {
+const changeAvatar = async (req, res, next) => {
+try {
     if (!req.files.avatar) {
       return next(new HttpError("Please choose an image.", 422));
     }
     const user = await User.findById(req.user.id);
     if (user.avatar) {
-      fs.unlink(path.join(_dirname, "..", "uploads", user.avatar), (err) => {
+      fs.unlink(path.join(__dirname, "..", "uploads", user.avatar), (err) => {
         if (err) {
           return next(new HttpError(err));
         }
@@ -111,7 +115,7 @@ const changeAvtar = async (req, res, next) => {
       "." +
       splittedFilename[splittedFilename.length - 1];
     avatar.mv(
-      path.join(_dirname, "..", "uploads", newFilename),
+      path.join(__dirname, "..", "uploads", newFilename),
       async (err) => {
         if (err) {
           return next(new HttpError(err));
@@ -132,10 +136,12 @@ const changeAvtar = async (req, res, next) => {
   }
 };
 
+
+
 // edit user
 const editUser = async (req, res, next) => {
   try {
-    const { name, email, currentPassword, newPassword, confirmNewPassword } =
+    const { name, email, currentPassword, newPassword, newConfirmPassword } =
       req.body;
 
     if (!name || !email || !currentPassword || !newPassword) {
@@ -163,7 +169,7 @@ const editUser = async (req, res, next) => {
       return next(new HttpError("Invalid current password.", 422));
     }
 
-    if (newPassword !== newConfirmNewPassword) {
+    if (newPassword !== newConfirmPassword) {
       return next(new HttpError("New passwords do not match.", 422));
     }
 
@@ -182,6 +188,8 @@ const editUser = async (req, res, next) => {
   }
 };
 
+ 
+
 //get authors
 const getAuthors = async (req, res, next) => {
   try {
@@ -196,7 +204,7 @@ module.exports = {
   registerUser,
   loginUser,
   getUser,
-  changeAvtar,
+  changeAvatar,
   editUser,
   getAuthors,
 };
