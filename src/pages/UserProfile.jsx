@@ -11,12 +11,14 @@ const UserProfile = () => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
+  const [error, setError] = useState("");
+
 
   const [isAvatarTouched, setIsAvatarTouched] = useState(false);
 
   const navigate = useNavigate();
   const { currentUser } = useContext(UserContext);
-  const token = currentUser?.token;
+  const token = currentUser?.token; 
 
   useEffect(() => {
     if (!token) {
@@ -47,11 +49,32 @@ const UserProfile = () => {
         postData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
-      setAvatar(response?.data.avatar);
+      setAvatar(response.data.avatar);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const updateUserDetails = async (e) => {
+     e.preventDefault(); 
+  try{ const userData = new FormData();
+    userData.set('name', name); userData.set('email', email);
+ userData.set('currentPassword', currentPassword)
+   userData.set('newPassword', newPassword)
+    userData.set('confirmNewPassword', confirmNewPassword)
+    const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/users/edit-user`, userData, 
+    {withCredentials: true, 
+      headers: {Authorization: `Bearer ${token}`}
+    })
+    if(response.status == 200) {
+    navigate('/logout')
+    }
+  }catch(error){
+setError(error.response.data.message);
+  }
+  }
+
+
 
   return (
     <section className="bg-gray-200 p-4 flex flex-col justify-around">
@@ -61,51 +84,53 @@ const UserProfile = () => {
         </Link>
 
         <div className="flex items-center justify-center mt-4">
-          <div className="mr-4">
-            <img
-              src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
-              alt=""
-              className="w-36 h-36 rounded-full z-10"
-            />
-          </div>
-
-          <form className="flex items-center space-x-4">
-            <label htmlFor="avatar" className="cursor-pointer">
-              <input
-                type="file"
-                name="avatar"
-                id="avatar"
-                onChange={(e) => setAvatar(e.target.files[0])}
-                accept="png, jpg, jpeg"
-                className="hidden"
-              />
-              <div className="bg-gray-200 p-2 rounded-md">
-                <FaEdit
-                  onClick={() => setIsAvatarTouched(true)}
-                  className="text-gray-500"
-                />
-              </div>
-            </label>
-
-            {isAvatarTouched && (
-              <button
-                onClick={changeAvatarHandler}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-              >
-                <FaCheck />
-              </button>
-            )}
-          </form>
+  <div className="relative">
+    <img
+      src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
+      alt=""
+      className="w-36 h-36 rounded-full"
+    />
+    <form className="absolute bottom-0 right-0 flex flex-col items-end space-y-2 p-2">
+      <label htmlFor="avatar" className="cursor-pointer">
+        <input
+          type="file"
+          name="avatar"
+          id="avatar"
+          onChange={(e) => setAvatar(e.target.files[0])}
+          accept="png, jpg, jpeg"
+          className="hidden"
+        />
+        <div className="bg-gray-200 p-2 rounded-lg">
+          <FaEdit
+            onClick={() => setIsAvatarTouched(true)}
+            className="text-gray-500"
+          />
         </div>
+      </label>
+      {isAvatarTouched && (
+        <button
+          onClick={changeAvatarHandler}
+          className="bg-blue-500 text-white p-2 rounded-lg"
+        >
+          <FaCheck />
+        </button>
+      )}
+    </form>
+  </div>
+</div>
+
+
 
         <h1 className="text-2xl font-bold mt-4 text-center">
           {currentUser.name}
         </h1>
 
-        <form className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
-          <p className="bg-red-500 p-2 rounded text-white text-center mb-4">
-            This is an error message
-          </p>
+        <form 
+        onSubmit={updateUserDetails}
+        className="max-w-md mx-auto p-4 bg-white shadow-md rounded-md">
+          {error &&<p className="bg-red-500 p-2 rounded text-white text-center mb-4">
+            {error}
+          </p>}
 
           <input
             type="text"
