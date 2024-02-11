@@ -40,7 +40,7 @@ const Authors = () => {
               <img
                 src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
                 alt={`Image of ${name}`}
-                className="w-full h-full object-cover"
+                className="w-36 h-36 rounded-full"
               />
             </div>
             <div>

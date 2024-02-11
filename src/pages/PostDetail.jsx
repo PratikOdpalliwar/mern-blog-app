@@ -34,37 +34,38 @@ const PostDetail = () => {
   }
 
   return (
-    <section className="container mx-auto mt-8">
+    <section className="container mx-auto p-4 md:px-8 lg:px-16 xl:px-24 2xl:px-32">
       {error && (
-        <p className="w-full mb-4 px-3 py-2 rounded bg-red-500 text-white">
+        <p className="w-full mb-4 px-4 py-2 rounded bg-red-500 text-white">
           {error}
         </p>
       )}
       {post && (
         <div className="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
           <PostAuthor authorID={post.creator} createdAt={post.createdAt} />
-          <div className="flex justify-between items-center mt-4">
-            <div>
-              {currentUser?.id === post.creator && (
-                <div>
-                  <Link to={`/posts/${post._id}/edit`} className="text-blue-500">
-                    Edit
-                  </Link>
-                  <span className="mx-2">|</span>
-                  <DeletePost postId={id} />
-                </div>
-              )}
-            </div>
-            <h1 className="text-4xl font-bold mt-4">{post.title}</h1>
-            <div className="mt-4">
-              <img
-                src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`}
-                alt=""
-                className="w-full h-auto rounded-lg"
-              />
-            </div>
-            <p dangerouslySetInnerHTML={{ __html: post.desc }}></p>
+          <div className="flex flex-col md:flex-row justify-between items-center mt-4">
+            {currentUser?.id === post.creator && (
+              <div className="mb-4 md:mb-0">
+                <Link to={`/posts/${post._id}/edit`} className="text-blue-500 mr-2">
+                  Edit
+                </Link>
+                <span className="mx-2">|</span>
+                <DeletePost postId={id} />
+                <h1 className="text-2xl font-bold my-7 md:ml-4">{post.title}</h1>
+              </div>
+            )}
+
+           
           </div>
+
+          <div className="mt-4">
+            <img
+              src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`}
+              alt=""
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+          <p className="mt-5" dangerouslySetInnerHTML={{ __html: post.description }}></p>
         </div>
       )}
     </section>

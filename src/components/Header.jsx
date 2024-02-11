@@ -28,8 +28,8 @@ const Header = () => {
             {currentUser?.id && (
               <>
                 <li>
-                  <Link to="/profile/sdfsdf" onClick={closeMenu}>
-                    {currentUser.name}
+                  <Link to={`/profile/${currentUser.id}`} onClick={closeMenu}>
+                    {currentUser?.name}
                   </Link>
                 </li>
                 <li>

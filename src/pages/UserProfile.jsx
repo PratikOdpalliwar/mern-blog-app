@@ -22,6 +22,19 @@ const UserProfile = () => {
     if (!token) {
       navigate("/login");
     }
+  }, []); 
+
+  useEffect(() => {
+    const getUser = async () => {
+      const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`,
+        { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+      );
+      const { name, email, avatar } = response.data;
+      setName(name);
+      setEmail(email);
+      setAvatar(avatar);
+    }
+    getUser()
   }, []);
 
   const changeAvatarHandler = async () => {
@@ -52,7 +65,7 @@ const UserProfile = () => {
             <img
               src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
               alt=""
-              className="w-36 h-36 rounded-full"
+              className="w-36 h-36 rounded-full z-10"
             />
           </div>
 
