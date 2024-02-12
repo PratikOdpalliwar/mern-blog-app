@@ -7,6 +7,9 @@ import { UserContext } from "../context/userContext";
 import axios from "axios";
 
 const PostDetail = () => {
+
+
+  
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [error, setError] = useState(null);
@@ -65,7 +68,7 @@ const PostDetail = () => {
               className="w-full h-auto rounded-lg"
             />
           </div>
-          <p className="mt-5" dangerouslySetInnerHTML={{ __html: post.description }}></p>
+          <p className="mt-5 px-5 text-justify" dangerouslySetInnerHTML={{ __html: post.description }}></p>
         </div>
       )}
     </section>

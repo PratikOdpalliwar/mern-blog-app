@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader"
 
@@ -7,6 +7,8 @@ import Loader from "../components/Loader"
 const Authors = () => {
   const [authors, setAuthors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+
 
   useEffect(() => {
     const getAuthors = async () => {

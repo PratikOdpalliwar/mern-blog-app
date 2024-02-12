@@ -11,8 +11,8 @@ const PostItem = ({
   thumbnail,
   createdAt,
 }) => {
-  const shortDesc = desc.length > 100 ? desc.substr(0, 100) + "..." : desc;
-  const postTitle = title.length > 100 ? title.substr(0, 100) + "..." : title;
+  const shortDesc = desc.length > 100 ? desc.substr(0, 100) + "....." : desc;
+  const postTitle = title.length > 100 ? title.substr(0, 100) + "....." : title;
 
   return (
     <article className="w-80 bg-white rounded-lg overflow-hidden shadow-2xl m-4">
@@ -31,7 +31,7 @@ const PostItem = ({
           {postTitle}
         </Link>
 
-        <p className="px-2 text-sm text-justify text-gray-700 w-full mt-2"
+        <p className="px-2 text-sm text-justify text-gray-700 w-full h-16 mt-2"
         dangerouslySetInnerHTML={{__html:shortDesc}}/>
 
 
