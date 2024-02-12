@@ -19,8 +19,8 @@ const Header = () => {
   return (
     <nav className="bg-white bg-opacity-50 w-full p-4 shadow-2xl fixed top-0 left-0 z-10">
       <div className="container mx-auto flex justify-between items-center">
-        <div className="text-black text-lg font-bold">
-          <Link to="/">Your Logo</Link>
+        <div className="text-black text-lg  font-bold italic">
+          <Link to="/">ClearCutsBlogs</Link>
         </div>
 
         {(currentUser?.id || !isOpen) && (
