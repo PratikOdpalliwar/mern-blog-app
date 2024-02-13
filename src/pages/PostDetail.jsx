@@ -21,7 +21,7 @@ const PostDetail = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_BASE_URL}/posts/${id}`
+          `https://mern-blog-server-rmvk.onrender.com/api/posts/${id}`
         );
         setPost(response.data);
       } catch (error) {
@@ -63,7 +63,7 @@ const PostDetail = () => {
 
           <div className="mt-4">
             <img
-              src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`}
+              src={`https://mern-blog-server-rmvk.onrender.com/uploads/${post.thumbnail}`}
               alt=""
               className="w-full h-auto rounded-lg"
             />

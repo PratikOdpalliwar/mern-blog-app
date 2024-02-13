@@ -14,7 +14,7 @@ const Authors = () => {
     const getAuthors = async () => {
     setIsLoading(true);
     try {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`)
+    const response = await axios.get(`https://mern-blog-server-rmvk.onrender.com/api/users`)
     setAuthors(response.data)
     } catch (error) {
     console.log(error)
@@ -40,7 +40,7 @@ const Authors = () => {
           >
             <div className="author-avatar overflow-hidden rounded-full mb-4">
               <img
-                src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
+                src={`https://mern-blog-server-rmvk.onrender.com/uploads/${avatar}`}
                 alt={`Image of ${name}`}
                 className="w-36 h-36 rounded-full"
               />

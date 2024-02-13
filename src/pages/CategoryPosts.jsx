@@ -16,7 +16,7 @@ const CategoryPosts = () => {
 const fetchPosts = async ()=>{
   setIsLoading(true)
   try{
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts/categories/${category}`)
+    const response = await axios.get(`https://mern-blog-server-rmvk.onrender.com/api/posts/categories/${category}`)
     setPosts(response?.data)
     }catch (err) {
       console.log(err)

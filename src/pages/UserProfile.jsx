@@ -28,7 +28,7 @@ const UserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       const response = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/users/${currentUser.id}`,
+        `https://mern-blog-server-rmvk.onrender.com/api/users/${currentUser.id}`,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
       const { name, email, avatar } = response.data;
@@ -45,7 +45,7 @@ const UserProfile = () => {
       const postData = new FormData();
       postData.set("avatar", avatar);
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/users/change-avatar`,
+        `https://mern-blog-server-rmvk.onrender.com/api/users/change-avatar`,
         postData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
@@ -65,7 +65,7 @@ const UserProfile = () => {
       userData.set("newPassword", newPassword);
       userData.set("confirmNewPassword", confirmNewPassword);
       const response = await axios.patch(
-        `${process.env.REACT_APP_BASE_URL}/users/edit-user`,
+        `https://mern-blog-server-rmvk.onrender.com/api/users/edit-user`,
         userData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
@@ -87,7 +87,7 @@ const UserProfile = () => {
         <div className="flex items-center justify-center mt-4">
           <div className="relative">
             <img
-              src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${avatar}`}
+              src={`https://mern-blog-server-rmvk.onrender.com/uploads/${avatar}`}
               alt=""
               className="w-36 h-36 rounded-full"
             />
