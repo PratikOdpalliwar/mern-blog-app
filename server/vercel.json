@@ -1,9 +1,10 @@
 {
   "version": 2,
+  "name":"mern-blog",
   "builds": [{ "src": "*.js", "use": "@vercel/node" }],
   "routes": [
     {
-      "src": "/(.)",
+      "src": "/(.*)",
       "dest": "/"
     }
   ]
