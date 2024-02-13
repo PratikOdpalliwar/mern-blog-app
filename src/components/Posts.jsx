@@ -11,7 +11,7 @@ const Posts = () => {
 const fetchPosts = async ()=>{
   setIsLoading(true)
   try{
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/posts`)
+    const response = await axios.get(`https://mern-blog-server-rmvk.onrender.com/api/posts`)
     setPosts(response?.data)
     }catch (err) {
       console.log(err)
