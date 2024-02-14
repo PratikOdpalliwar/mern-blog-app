@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(cors({
     credentials:true, 
-    origin: "http://localhost:3000"
+    origin: "https://mern-blog-app-alpha.vercel.app/"
 }))
 
 app.use(upload())
