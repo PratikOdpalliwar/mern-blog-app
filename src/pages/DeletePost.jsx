@@ -16,7 +16,7 @@ const DeletePost = ({ postId: id }) => {
     if (!token) {
       navigate("/login");
     }
-  }, []);
+  }, [token, navigate]);
 
   const removePost = async () => {
     setIsLoading(true);

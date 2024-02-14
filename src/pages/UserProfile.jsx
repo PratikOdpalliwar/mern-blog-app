@@ -23,7 +23,7 @@ const UserProfile = () => {
     if (!token) {
       navigate("/login");
     }
-  }, [navigate, token]);
+  }, [token, navigate]);
 
   useEffect(() => {
     const getUser = async () => {

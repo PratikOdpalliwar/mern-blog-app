@@ -18,7 +18,7 @@ const Dashboard = () => {
     if (!token) {
       navigate("/login");
     }
-  }, []);
+  }, [token, navigate]);
 
   useEffect(() => {
     const fetchPosts = async () => {

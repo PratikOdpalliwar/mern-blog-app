@@ -22,7 +22,7 @@ const EditPost = () => {
     if (!token) {
       navigate("/login");
     }
-  }, []);
+  }, [token, navigate]);
 
   const modules = {
     toolbar: [
@@ -77,7 +77,7 @@ const EditPost = () => {
       }
     };
     getPost();
-  }, []);
+  }, [id]);
 
   const editPost = async (e) => {
     e.preventDefault();

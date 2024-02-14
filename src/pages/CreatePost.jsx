@@ -21,7 +21,7 @@ const CreatePost = () => {
     if (!token) {
       navigate("/login");
     }
-  }, []);
+  }, [token, navigate]);
 
   const modules = {
     toolbar: [
