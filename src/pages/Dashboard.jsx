@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { DUMMY_POSTS } from "../data";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
 import Loader from "../components/Loader";
