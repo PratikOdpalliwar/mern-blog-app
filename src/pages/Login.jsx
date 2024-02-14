@@ -26,7 +26,7 @@ const Login = () => {
     setError("");
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/users/login`,
+        `https://mern-blog-server-rmvk.onrender.com/api/users/login`,
         userData
       );
       const user =await response.data

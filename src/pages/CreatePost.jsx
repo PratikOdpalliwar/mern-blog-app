@@ -74,7 +74,7 @@ const CreatePost = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/posts`,
+        `https://mern-blog-server-rmvk.onrender.com/api/posts`,
         postData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
