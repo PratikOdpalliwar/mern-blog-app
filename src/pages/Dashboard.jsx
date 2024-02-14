@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { DUMMY_POSTS } from "../data";
 import { UserContext } from "../context/userContext";
 import axios from "axios";
 import Loader from "../components/Loader";
@@ -26,7 +25,7 @@ const Dashboard = () => {
       setIsLoading(true);
       try {
         const response = await axios.get(
-          `https://mern-blog-server-rmvk.onrender.com/api/posts/users/${id}`,
+          `${process.env.REACT_APP_BASE_URL}/posts/users/${id}`,
           {
             withCredentials: true,
             headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +53,7 @@ const Dashboard = () => {
               <div>
                 <img
                   className="w-16 sm:w-20 rounded m-2 flex justify-center"
-                  src={`https://mern-blog-server-rmvk.onrender.com/uploads/${post.thumbnail}`}
+                  src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${post.thumbnail}`}
                   alt=""
                 />
               </div>

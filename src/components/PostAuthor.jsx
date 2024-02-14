@@ -10,7 +10,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
     const getAuthor = async () => {
       try {
         const response = await axios.get(
-          `https://mern-blog-server-rmvk.onrender.com/api/users/${authorID}`
+          `${process.env.REACT_APP_BASE_URL}/users/${authorID}`
         );
         setAuthor(response?.data);
       } catch (error) {
@@ -26,7 +26,7 @@ const PostAuthor = ({ authorID, createdAt }) => {
         <div>
           <img
             className="w-12 h-12 rounded-full"
-            src={`https://mern-blog-server-rmvk.onrender.com/uploads/${author?.avatar}`}
+            src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${author?.avatar}`}
             alt=""
           />
         </div>

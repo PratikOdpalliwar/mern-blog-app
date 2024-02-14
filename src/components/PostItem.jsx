@@ -19,7 +19,7 @@ const PostItem = ({
       <div>
         <img
           className="w-full p-2"
-          src={`https://mern-blog-server-rmvk.onrender.com/uploads/${thumbnail}`}
+          src={`${process.env.REACT_APP_ASSETS_URL}/uploads/${thumbnail}`}
           alt={title}
         />
       </div>

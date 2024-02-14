@@ -22,7 +22,7 @@ const DeletePost = ({ postId: id }) => {
     setIsLoading(true);
     try {
       const response = await axios.delete(
-        `https://mern-blog-server-rmvk.onrender.com/api/posts/${id}`,
+        `${process.env.REACT_APP_BASE_URL}/posts/${id}`,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.status == 200) {
