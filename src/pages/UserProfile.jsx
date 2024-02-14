@@ -23,7 +23,7 @@ const UserProfile = () => {
     if (!token) {
       navigate("/login");
     }
-  }, []);
+  }, [navigate, token]);
 
   useEffect(() => {
     const getUser = async () => {
@@ -37,7 +37,7 @@ const UserProfile = () => {
       setAvatar(avatar);
     };
     getUser();
-  }, []);
+  }, [currentUser.id, token]);
 
   const changeAvatarHandler = async () => {
     setIsAvatarTouched(false);
@@ -69,7 +69,7 @@ const UserProfile = () => {
         userData,
         { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
       );
-      if (response.status == 200) {
+      if (response.status === 200) {
         navigate("/logout");
       }
     } catch (error) {
